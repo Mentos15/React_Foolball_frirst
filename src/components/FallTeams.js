@@ -1,11 +1,19 @@
-
 import React, { useState, useEffect } from 'react';
+import {saveLikeTeamsSuccessAction} from "../redux/actions";
+import '../styles/FallTeams.css'
+import FallTeamsInfo from './FallTeamInfo';
+import { useDispatch, useSelector } from "react-redux";
+import { getFavoriteTeams, getFavoritPlayers } from "../redux/selectors";
 
-import './FallTeams.css'
-import FallTeamsInfo from './FallTeamInfo'
+
+
 export default  function FallTeams() {
 
+  
+  const dispatch = useDispatch();
   const [teams, setTeams] = useState([]);
+  // const favoriteTeams = useSelector(getFavoriteTeams);
+  // const [favoritTeam, setFavoritTeam] = useState(favoriteTeams);
 
   const [isVisibleInfo, SetVisible] = useState(false);
 
@@ -35,7 +43,7 @@ export default  function FallTeams() {
   }
   
 
-  const  loadData = async()=>{
+  const loadData = async()=>{
       const allTeams = await fetch("https://api.football-data.org/v2/teams ", {
       method: 'GET',
       headers: {
@@ -50,14 +58,24 @@ export default  function FallTeams() {
     })
   }
   
-
+  const saveToReduxTeam = (team, id) =>{
+    dispatch(saveLikeTeamsSuccessAction({ teams: team, id: id }));
+  }
+    
   
+  const addTeam = (team, id)=>{
+    // setFavoritTeam(team,id);
+    saveToReduxTeam(team, id);
+  };
+
   useEffect(() => {
     loadData();
+    // console.log(favoritTeam);
   },[]);
 
 return(
   <div className="teams">
+
     {
        teams.map((item) => {
         return (
@@ -67,7 +85,8 @@ return(
                 <img src={item.crestUrl}></img>
               </div>
               <div>
-                <button className="viewMore" onClick={handleOnclick.bind(this,item.id)}>Подробнее</button>
+                <button className="viewMore" onClick={()=>handleOnclick(item.id)}>Подробнее</button>
+                <button className="addFavoritTeam" onClick={() => addTeam(item.name, item.id)}>Добавить в избранное</button>
               </div>
             </div>
         )

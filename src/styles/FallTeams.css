@@ -46,7 +46,19 @@ a:hover{
   font-size: 20px;
   color: navy;
 }
-.team button:hover{
+.squad button{ 
+  height: 50px;
+}
+.addUserLike{
+  border: none;
+  padding: 0;
+  margin: 0;
+  background-color: silver;
+  text-transform: uppercase;
+  
+  color: navy
+}
+.team button:hover, .addUserLike:hover{
   background-color: goldenrod;
   border: none;
   cursor: pointer;
@@ -107,7 +119,7 @@ a:hover{
 }
 
 .playerPhoto{
-  background-image: url("./anonim.png");
+  background-image: url("../anonim.png");
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
@@ -128,9 +140,8 @@ a:hover{
 
 .secondRow{
   height: 100%;
-  text-align: center;
-  justify-content: center;
-  line-height: 5em;
+  justify-content: space-between;
+  flex-direction: column;
 }
 
 .secondRow .playerName{

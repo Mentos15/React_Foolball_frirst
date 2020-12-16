@@ -1,10 +1,27 @@
 
 import { render } from '@testing-library/react';
 import React, { useState, useEffect } from 'react';
+import {saveLikePlayersSuccessAction} from "../redux/actions";
+import { useDispatch, useSelector } from "react-redux";
+import { getFavoritePlayers } from "../redux/selectors";
 
-import './FallTeams.css'
+import '../styles/FallTeams.css'
 
 export default function FallTeamInfo(props) {
+
+  const dispatch = useDispatch();
+  // const favoritePlayers = useSelector(getFavoritePlayers);
+  // const [favoritPlayer, setFavoritPlayer] = useState(favoritePlayers);
+
+  const saveToReduxPlayer = (players, id) =>{
+    dispatch(saveLikePlayersSuccessAction({ players: players, id: id }));
+  }
+    
+  
+  const addPlayer = (players, id)=>{
+    saveToReduxPlayer(players, id);
+  };
+
 
   let renderBody = null;
   
@@ -26,6 +43,7 @@ export default function FallTeamInfo(props) {
                 </div>
                 <div className="secondRow">
                   <div className="playerName">Name: { item.name? item.name: "Нет информации"}</div>
+                  <button className="addUserLike" onClick={() => addPlayer(item.name, item.id)}>Добавить в избранное</button> 
                 </div>
               </div>
             )

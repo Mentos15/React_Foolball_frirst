@@ -1,0 +1,25 @@
+.profile{
+  display: flex;  
+  color: #fff;
+}
+.userName{
+  margin-top: 1em;
+}
+.photoUser{
+  margin-top: 1em;
+  background-image: url("../anonim.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 100px;
+  height: 100px;
+}
+ul{
+  list-style-type: none;
+}
+.column-info, .column-favorite-teams, .column-favorite-players{
+  display: flex;
+  flex: 0 0 33%;
+  align-items: center;
+  flex-direction: column;
+}
